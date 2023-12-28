@@ -1,11 +1,9 @@
-// import express from 'express';
+import express from 'express';
 
-// import authentication from '../controllers/users';
-// import users from './users';
+import { deleteUser , getAllUsers } from '../controllers/users';
+import { isAuthenticated, isOwner } from '../middlewares';
 
-// const router = express.Router();
-
-// export default (): express.Router => {
-//     authentication(router);
-//     users(router);
-// };
+export default (router:express.Router) => {
+    router.get('/users', isAuthenticated, getAllUsers);
+    router.delete('/users/:id', isAuthenticated, isOwner, deleteUser);
+}
